@@ -190,11 +190,7 @@ function go() {
         // 末尾补一位
         el.d_shift.innerHTML = arr.join("")+"0";
     }
-	
-	
-	
-	
-	
+
 	// C右移1位
 	if(el.o_c_half.value == 1){
 		var arr = el.d_c.innerHTML.split("");
