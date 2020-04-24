@@ -157,7 +157,7 @@ function go() {
 	// ALU右移1位
 	if(el.o_alu_half.value == 1){
 		var arr = el.d_alu.innerHTML.split("");
-		// 判断是不是小数 是小数就把小数点往前移动一位  因为等会儿还要补
+		// 判断第三位（因为是双符号位）是不是小数 是小数就把小数点往前移动一位  因为等会儿还要补
 		if(arr[2] == "."){
 			arr[2]= arr[1];
 			arr[1]=".";
@@ -176,7 +176,20 @@ function go() {
 		arr.pop();
 		
 		el.value.innerHTML = el.d_alu.innerHTML+arr.join("");
-	}
+	}else if(el.o_2_alu.value == 1){
+        // 向左移位 1.01  -》10.1-》 0.10
+        var arr = el.d_alu.innerHTML.split("");
+
+        if(arr[2] == "."){
+            arr[2]= arr[3];
+            arr[3]=".";
+        }
+
+        // 移除首元素
+        arr.shift();
+        // 末尾补一位
+        el.d_shift.innerHTML = arr.join("")+"0";
+    }
 	
 	
 	
