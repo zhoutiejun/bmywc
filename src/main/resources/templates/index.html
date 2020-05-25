@@ -12,7 +12,7 @@
         <input class = "i_y input_s i_2"/>
         <input class = "i_z input_s i_4"/>
         <input class = "i_count input_s i_3"/>
-        <div class = "value"></div>
+        <div class = "value" contenteditable="true" id="valueText" style = "border: solid 1px #FA0"></div>
         <div class = "d_a d d_1">A</div>
         <div class = "d_b d d_2">B</div>
         <div class = "d_notb d d_3">/B</div>
@@ -24,6 +24,7 @@
         <div class = "d_notb_alu d d_9"></div>
         <div class = "d_in_a d d_10"></div>
         <div class = "d_in_b d d_11"></div>
+        <div class = "xny" id = "xny">${content}</div>
         <input class = "i_in input_s i_4"/>
         <select class = "o_in_a o o_1">
             <option value ="0">0</option>
@@ -97,5 +98,6 @@
         </div>
     </div>
 </body>
+<script src="../static/js/jquery-3.1.1.min.js"></script>
 <script src = "../static/js/index.js"></script>
 </html>

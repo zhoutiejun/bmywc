@@ -13,7 +13,19 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 
     @RequestMapping("/index")
-    public ModelAndView index(){
-        return new ModelAndView("index");
+    public ModelAndView index(String type){
+        ModelAndView modelAndView =  new ModelAndView("index");
+        modelAndView.addObject("content", type);
+        return modelAndView;
+    }
+
+    @RequestMapping("/home")
+    public ModelAndView home(){
+        return new ModelAndView("select");
+    }
+
+    @RequestMapping("/table")
+    public ModelAndView table(){
+        return new ModelAndView("table");
     }
 }

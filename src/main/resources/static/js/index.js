@@ -45,6 +45,7 @@ class Time {
     }
 }
 let element = [
+    "xny",
     "i_x", 
     "i_y", 
     "i_in", 
@@ -79,6 +80,20 @@ let element = [
     "value",
     "time"
 ];
+const query = (json) => {
+    json = json.substr(json.indexOf("?") + 1, json.length);
+    json = json.substr(0, json.indexOf("#") != -1 && json.indexOf("#") || json.length).split("&");
+    let query = {};
+    for(let i = 0; json[i]; i++ ) {
+        let value = json[i].split("=");
+        query[value[0]] = value[1];
+    }
+    return query;
+}
+// 解析search
+let data = query(window.location.search);
+// document.getElementsByClassName("xny")[0].innerHTML = data.content + "=";
+
 let el = [];
 // 复位
 function reset() {
@@ -157,7 +172,7 @@ function go() {
 	// ALU右移1位
 	if(el.o_alu_half.value == 1){
 		var arr = el.d_alu.innerHTML.split("");
-		// 判断第三位（因为是双符号位）是不是小数 是小数就把小数点往前移动一位  因为等会儿还要补
+		// 判断是不是小数 是小数就把小数点往前移动一位  因为等会儿还要补
 		if(arr[2] == "."){
 			arr[2]= arr[1];
 			arr[1]=".";
@@ -176,21 +191,12 @@ function go() {
 		arr.pop();
 		
 		el.value.innerHTML = el.d_alu.innerHTML+arr.join("");
-	}else if(el.o_2_alu.value == 1){
-        // 向左移位 1.01  -》10.1-》 0.10
-        var arr = el.d_alu.innerHTML.split("");
-
-        if(arr[2] == "."){
-            arr[2]= arr[3];
-            arr[3]=".";
-        }
-
-        // 移除首元素
-        arr.shift();
-        // 末尾补一位
-        el.d_shift.innerHTML = arr.join("")+"0";
-    }
-
+	}
+	
+	
+	
+	
+	
 	// C右移1位
 	if(el.o_c_half.value == 1){
 		var arr = el.d_c.innerHTML.split("");
@@ -254,6 +260,27 @@ function sumbit() {
     time.stopTime();
     console.log(time.getTime(1));
     console.log(time.getTime(0));
+    console.log(el.i_x.value);
+    console.log(el.i_y.value);
+    console.log(document.getElementById("xny").innerHTML);
+    console.log(document.getElementById("valueText").innerHTML);
+
+    var content = "x="+el.i_x.value+", y="+el.i_y.value+", "+document.getElementById("xny").innerHTML+document.getElementById("valueText").innerHTML;
+
+    // 上传记录
+    $.ajax({
+        url : "/record/upload",
+        type: 'POST',
+        data: {username:"username", content:content, userTime: time.getTime(1)},
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        success : function(msg){
+            alert("成功提交")
+        },
+        error : function(msg){
+        }
+    });
 }
 // 退出
 function exit() {

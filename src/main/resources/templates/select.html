@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算器选择页面</title>
+    <link rel = "stylesheet" href = "../static/style/style.css"/>
+</head>
+<body style= "text-align:center">
+		<div style="margin : 200px auto">
+		<div>请选择计算器功能</div>
+		<select style="width: 100px" id="selector">
+			<option value ="x%2By=">加法</option>
+			<option value ="x-y=">减法</option>
+			<option value ="x*y=">乘法</option>
+			<option value ="x/y=">除法</option>
+		</select>
+		<button onclick="jisuanqi()">跳转</button>
+	</div>
+</body>
+
+<script type="text/javascript">
+    function  jisuanqi() {
+
+        var selectValue;
+        var selectCount = document.getElementById("selector").options;
+        for(var i = 0 ; i<selectCount.length;i++){
+            if(selectCount[i].selected){
+                selectValue = selectCount[i].value;
+            }
+        }
+        window.location.href="/index?type="+selectValue;
+    }
+</script>
+</html>
